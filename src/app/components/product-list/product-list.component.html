@@ -1,0 +1,116 @@
+
+
+    <div class="row">
+
+       
+
+        <div class="col">
+
+
+
+            <div style="padding: 5rem;">
+
+                <h3 class="text-center pt-3">Add Products</h3>
+                
+                <div class="card text-white bg-success" style="width: 40rem;">
+
+                    <app-add-product (dataStorageUpdated)="recivedData($event)"></app-add-product>
+    
+                    
+                </div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+
+        <div class="col">
+
+            <div class="list pt-5">
+
+                <div class="row">
+
+                    <h3 class="text-center pt-5">Products List</h3>
+                    
+                    <div class="col-md-6" *ngFor="let item of data_storage">
+ 
+
+                     <div class="cart">
+
+                        <div class="col-lg-4 col-md-6 col-sm-6" >
+
+                            <figure class="card card-product-grid">
+                                <div class="img-wrap">
+                                    <img  src="{{item.image}}"  class="img-fluid" >
+                                </div>
+
+                                <div class="card-body">
+
+                                    <figcaption class="info-wrap border-top">
+                                        <div class="price-wrap">
+                                            <strong class="price">${{item.price}}</strong>
+                                            <h5>{{item.name}}</h5>
+                                        </div> <!-- price-wrap.// -->
+                                        <p class="title mb-2" >{{item.description}}</p>
+                                        <a style="cursor: pointer;" (click)="showDescription(item)">More...</a>
+                                    </figcaption>
+
+                                </div>
+
+
+                                <div class="card-footer text-muted" style="display: flex;justify-content: space-between;">
+
+                                    <button *ngIf="!item.added" class="btn btn-primary" (click)="addProduct(item)" >Add to cart</button>
+
+                                    <button *ngIf="item.added" class="btn btn-success" (click)="addProduct(item)" disabled>Added</button>
+
+                                    <a class="btn btn-danger" (click)="deleteProduct(item)">Delete</a>
+                                </div>
+
+                            </figure>
+
+                        </div>
+
+
+                        <div>
+
+                        </div>
+
+                     </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
