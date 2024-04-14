@@ -64,16 +64,12 @@ export class CartComponent implements OnInit {
   
 
   removeItems(item: any) {
-
     const index = this.cart_data.indexOf(item);
-  
-
     if (index !== -1) {
       this.cart_data.splice(index, 1);
       
       localStorage.setItem('added_cart_data', JSON.stringify(this.cart_data));
     }
-    
   }
   
 

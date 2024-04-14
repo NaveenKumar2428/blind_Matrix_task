@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartService } from '../service/cart.service';
 
 
 
@@ -21,23 +22,20 @@ export class ProductListComponent implements OnInit {
 
   added: boolean = false;
 
-
   constructor(
     private router: Router,
+    private cartService:CartService
   ) { }
 
   ngOnInit(): void {
 
     const data = localStorage.getItem('cart_data')
 
-    console.log(localStorage.getItem('cart_data'))
-
     if (data !== null) {
       this.data_storage = JSON.parse(data); 
     }
-
-
-
+    
+    
   }
 
 
@@ -54,7 +52,7 @@ export class ProductListComponent implements OnInit {
 
     localStorage.setItem('cart_data', JSON.stringify(this.data_storage));
 
-    console.log("Updated data storage:", this.data_storage);
+    // console.log("Updated data storage:", this.data_storage);
   }
 
 
@@ -66,6 +64,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addProduct(item: any) {
+
     item.added = true;
 
     var addQuantity = 
@@ -80,10 +79,15 @@ export class ProductListComponent implements OnInit {
 
     this.cart_items = updatedDataStorage;
 
-    localStorage.setItem('added_cart_data', JSON.stringify(this.cart_items));
+    console.log(this.cart_items)
 
+    localStorage.setItem('added_cart_data', JSON.stringify(this.cart_items));
+  
+
+    this.cartService.incrementCartCount();
 
   }
+
 
 
   deleteUpdate(){
@@ -97,9 +101,12 @@ export class ProductListComponent implements OnInit {
 
   }
 
+
+
   deleteProduct(item:any){
     const index = this.data_storage.indexOf(item);
-    let allAddCardData = localStorage.getItem('added_cart_data') ;
+    let allAddCardData = localStorage.getItem('added_cart_data');
+
     if(allAddCardData != null){
       let parsedDAta =  JSON.parse(allAddCardData)
       let removedAdd = parsedDAta.filter((val : any) => item.id !== val.id )
@@ -112,12 +119,24 @@ export class ProductListComponent implements OnInit {
       localStorage.setItem('cart_data', JSON.stringify(this.data_storage));
     }
 
+    this.cartService.decCartCount();
+
   }
 
 
   editProduct(item:any){
-
     const edit_product =  this.data_storage.filter((val)=> item.id == val.id)
+    this.cartService.updateEditProductData(edit_product);
+
+
+    const index = this.data_storage.indexOf(item);
+
+    if (index !== -1) {
+      this.data_storage.splice(index, 1);
+      
+      localStorage.setItem('cart_data', JSON.stringify(this.data_storage));
+    }
+
 
   }
 

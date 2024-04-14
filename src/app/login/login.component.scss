@@ -4,6 +4,9 @@
     justify-content: center;
     align-items: center;
     padding-top: 8rem;
+    background-color: #87cefa;
+    height: 100vh;
+    padding-bottom: 6rem;
 }
   
 .register-form{
@@ -11,6 +14,15 @@
 }
 
 .form-group{
-    padding-top: 0.5rem;
+    padding-top: 0.6rem;
 }
-  
+
+.btn-wide {
+    width: 320px; 
+  }
+
+  @media (max-width: 576px) {
+    .btn-wide {
+      width: 100%; 
+    }
+  }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CartService } from '../service/cart.service';
 
 
 @Component({
@@ -23,13 +24,15 @@ export class AddProductComponent implements OnInit {
 
   data_storage: any[] = [];
 
+  editproduct:number = 0;
 
   constructor(  
-    private router: Router
+    private router: Router,
+    private carService:CartService
   ) {}
 
   ngOnInit(): void {
-   console.log(this.editProd)
+    this.getCartData();
   }
 
 
@@ -62,16 +65,31 @@ export class AddProductComponent implements OnInit {
       quantity: 0
     }
     
-  if(productData !== null){
-    this.dataStorageUpdated.emit(productData);
-  }
+     if(productData !== null){
+      this.dataStorageUpdated.emit(productData);
+    }
+    
     
   }
 
 
-  getEditData(){
+  getCartData(){
+    this.carService.editProductData$.subscribe((data) =>{
 
+      this.editproduct = data.length;
+
+      if (data.length > 0) {
+        const receivedData = data[0];
+        this.addCartData.id = receivedData.id;
+        this.addCartData.name = receivedData.name;
+        this.addCartData.price = receivedData.price;
+        this.addCartData.description = receivedData.description;
+        console.log('Received data in second component:', this.addCartData);
+      }
+    })
   }
+
+
 
 
 }

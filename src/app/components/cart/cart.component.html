@@ -95,12 +95,22 @@
 </div>
 
 
-<div *ngIf="cart_data.length === 0" class="text-center"> 
+<div *ngIf="cart_data.length === 0" class="text-center" style="display: flex; justify-content: center; padding-top: 10rem;"> 
 
 
-<h1 class="text-center pt-5">No items Added</h1>
+    <div class="card" style="width: 37rem;">
 
 
- <button class="btn btn-warning" routerLink="/home">Add product</button>
+        <div class="card-body">
+            <h1 class="text-center pt-5">No items Added</h1>
+        </div>
+    
+        <div class="card-footer"> 
+            <button class="btn btn-warning" routerLink="/home">Add Product</button>
+        </div>
+        
+
+    </div>
+
 
 </div>

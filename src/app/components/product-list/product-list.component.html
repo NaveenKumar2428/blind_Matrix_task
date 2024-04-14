@@ -12,7 +12,7 @@
 
                 <h3 class="text-center pt-3">Add Products</h3>
                 
-                <div class="card text-white bg-success" style="width: 40rem;">
+                <div class="card text-white" style="width: 35rem; background-color: #6495ed;" >
 
                     <app-add-product (dataStorageUpdated)="recivedData($event)"></app-add-product>
     
@@ -43,9 +43,9 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-6" >
 
-                            <figure class="card card-product-grid">
+                            <figure class="card card-product-grid" style="background-color: #add8e6;">
                                 <div class="img-wrap">
-                                    <img  src="{{item.image}}"  class="img-fluid" >
+                                    <img  src="{{item.image}}"  class="img-fluid" alt="No image" >
                                 </div>
 
                                 <div class="card-body">
@@ -66,7 +66,9 @@
 
                                     <button *ngIf="!item.added" class="btn btn-primary" (click)="addProduct(item)" >Add to cart</button>
 
-                                    <button *ngIf="item.added" class="btn btn-success" (click)="addProduct(item)" disabled>Added</button>
+                                    <button *ngIf="item.added" class="btn btn-success"  disabled>Added</button>
+
+                                    <button  class="btn btn-warning"  (click)="editProduct(item)" >Edit</button>
 
                                     <a class="btn btn-danger" (click)="deleteProduct(item)">Delete</a>
                                 </div>
